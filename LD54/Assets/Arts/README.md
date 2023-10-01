@@ -1,29 +1,43 @@
-# Match: Level-Image
+# ASSETS/ARTS README.MD
 
-## Easy - Lv1
-- file: underground.png
-- image size: 768 x 768 px
-- board size: 3 x 3
+## Board Items
 
-## Easy - Lv2
-- file: salvage.png
-- image size: 1024 x 1024 px
-- board size: 4 x 4
+### Tile Mask
 
-## Mid - Lv3
-- file: strange-machine.png
-- image size: 1024 x 1024 px
-- board size: 4 x 4
-- other file: strange-machine-extra.png
+- file : tile-mask.png
+- image size : 256 x 256 px
 
-## Mid - Lv4
-- file: tiny-creatures.png
-- image size: 1280 x 1280 px
-- board size: 5 x 5
-- other file: tiny-creatures-extra.png
+## Match: Level-Image
 
-## Hard - Lv5
-- file: ...
-- image size: 1536 x 1536 px
-- board size: 6 x 6
-- other file: ...
+### Easy - Lv1
+
+- file : underground.png
+- image size : 768 x 768 px
+- board size : 3 x 3
+
+### Easy - Lv2
+
+- file : salvage.png
+- image size : 1024 x 1024 px
+- board size : 4 x 4
+
+### Mid - Lv3
+
+- file : strange-machine.png
+- image size : 1024 x 1024 px
+- board size : 4 x 4
+- other file : strange-machine-extra.png
+
+### Mid - Lv4
+
+- file : tiny-creatures.png
+- image size : 1280 x 1280 px
+- board size : 5 x 5
+- other file : tiny-creatures-extra.png
+
+### Hard - Lv5
+
+- file : ...
+- image size : 1536 x 1536 px
+- board size : 6 x 6
+- other file : ...
