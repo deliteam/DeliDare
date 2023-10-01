@@ -1,41 +1,34 @@
-# LD54 - DeliTeam {Game.Title}
+# Delidare
 
-Game for Ludum Dare 54 game jam.
+Join us in our quest to attain 'Limited Space' by participating in battles within a limited space. Challenge yourself to solve puzzles, conquer themes, and ultimately reach the coveted 'Limited Space.
 
 ## Features
 
--
--
+- Solve puzzles
+- Defeat 'Themes'
+- Reach the 'Limited Space'
 
 ## Controls
 
-- WASD - Move
--
+- Left Mouseclick - Drag and Drop
+- C - Toggle Reference Picture
 
 ## Used Technologies
 
-| X                   | Programme        |
+|                     | Program          |
 | ------------------- | ---------------- |
 | Game Engine         | Unity 2021.3.7f1 |
-| Art                 |                  |
+| Art                 | Adobe Photoshop(AI), <br/>Procreate  , <br/>Adobe Illustrator |
 | Sound               | FL Studio        |
 | Version Controlling | Git - GitHub     |
 
-## Authors
+## Team Members
 
-For all team members and their contact informations you can checkout [team.md](/team.md).
-
-| X           | Name                 |
-| ----------- | -------------------- |
-|             | GraphicEdit          |
-| QA          | notDepresseDeveloper |
-| Art         | AysArt               |
-| Dev         | monkeyD_Dcx / fkavun |
-| Dev         | Delikaya (?)         |
-| Art         | İbrahim ?            |
-| Art         | Sercan Uysal         |
-|             |                      |
-| Write / Art | Uthertan ?           |
-| Art         | İsmail ?             |
-
-And many others...
+- monkeyD_Dcx / fkavun
+- AysArt / igdiaysu
+- İbrahim Özdemir
+- Senceroth
+- Notdepressedeveloper
+- BLOK
+- Delikaya
+- GraphicEdit
