@@ -77,8 +77,10 @@ namespace DefaultNamespace
                 int col = Mathf.RoundToInt(pos.x);
                 int row = Mathf.RoundToInt(pos.y);
                 transform.position = new Vector3(col, row, pos.z);
+                int currentCol = CurrentCol;
+                int currentRow = CurrentRow;
                 SetCurrentIndex(col,row);
-                OnTilePosChange?.Invoke(this,CurrentCol,CurrentRow,col,row);
+                OnTilePosChange?.Invoke(this,currentCol,currentRow,col,row);
                 _isDragging = false;
             }
 

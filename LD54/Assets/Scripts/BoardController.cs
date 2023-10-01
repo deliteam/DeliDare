@@ -20,6 +20,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private CameraController _cameraController;
     [SerializeField] private Sprite _maskSprite;
     [SerializeField] private TextMeshProUGUI _winPercentageText;
+    [SerializeField] private SpriteRenderer _boardBg;
     private int _colCount;
     private int _rowCount;
     private Tile[,] _tiles;
@@ -69,6 +70,8 @@ public class BoardController : MonoBehaviour
         ShuffleTiles();
         CheckWinCondition();
         _cameraController.SetCamera(_colCount,_rowCount);
+        _boardBg.transform.position = new Vector3((_colCount -1)/2f,(_rowCount -1)/2f,0);
+        _boardBg.size = new Vector2(_colCount * 1.05F, _rowCount* 1.05F);
     }
 
     private void OnTileIndexChange(Tile tile,int currentCol ,int currentRow,int col, int row)
