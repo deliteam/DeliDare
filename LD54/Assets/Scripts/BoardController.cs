@@ -104,6 +104,7 @@ public class BoardController : MonoBehaviour
         if (percentage > 0.4F)
         {
             WinScreen.Instance.ShowWinScreen();
+            MusicController.Instance.StartSfx(SfxName.Win);
         }
     }
 
@@ -150,6 +151,7 @@ public class BoardController : MonoBehaviour
 
             if (hit.collider != null)
             {
+                MusicController.Instance.StartSfx(SfxName.Click);
                 Tile tile = hit.collider.GetComponent<Tile>();
                 tile.StartDrag(GetAvailableMovements(tile));
             }

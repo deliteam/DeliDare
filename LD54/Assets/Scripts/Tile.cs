@@ -82,6 +82,7 @@ namespace DefaultNamespace
                 SetCurrentIndex(col,row);
                 OnTilePosChange?.Invoke(this,currentCol,currentRow,col,row);
                 _isDragging = false;
+                MusicController.Instance.StartSfx(SfxName.Drop);
             }
 
             if (_availableMovements == AvailableMovements.None)

@@ -24,6 +24,7 @@ namespace DefaultNamespace
             tex = Resources.Load<Texture2D>($"Levels/{_currentLevel}");
             _boardController.Setup(tex);
             _referenceScreen.SetReferenceImage(tex);
+            MusicController.Instance.StartMusic(_currentLevel);
         }
 
         public void GetNextLevel()
