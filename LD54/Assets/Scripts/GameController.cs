@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class GameController : MonoBehaviour
     {
         [SerializeField] private BoardController _boardController;
+        [SerializeField] private ReferenceScreen _referenceScreen;
         private int _currentLevel = 1;
         private void Awake()
         {
@@ -29,6 +29,7 @@ namespace DefaultNamespace
             }
             tex = Resources.Load<Texture2D>($"Levels/{_currentLevel}");
             _boardController.Setup(tex);
+            _referenceScreen.SetReferenceImage(tex);
         }
 
         private void GetNextLevel()
