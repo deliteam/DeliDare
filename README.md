@@ -18,7 +18,7 @@ Join us in our quest to attain 'Limited Space' by participating in battles withi
 |                     | Program          |
 | ------------------- | ---------------- |
 | Game Engine         | Unity 2021.3.7f1 |
-| Art                 | Adobe Photoshop(AI), <br/>Procreate  , <br/>Adobe Illustrator |
+| Art                 | Adobe Photoshop(AI), <br/>Procreate, <br/>Adobe Illustrator, <br/>Figma|
 | Sound               | FL Studio        |
 | Version Controlling | Git - GitHub     |
 
