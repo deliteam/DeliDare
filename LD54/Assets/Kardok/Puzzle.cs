@@ -9,6 +9,8 @@ public class Puzzle : MonoBehaviour
     public Transform enterPoint;
     public bool isMoving;
     public List<Piece> pieces,emptyPieces;
+    public int tileSize; //if tile size is 3x3, write 3.
+    public int tileArtID; 
     private void Start()
     {
         pieces.AddRange(GetComponentsInChildren<Piece>());
@@ -25,6 +27,7 @@ public class Puzzle : MonoBehaviour
                 i--;
             }
         }
+        enterPoint.transform.localPosition = new Vector2(0,Random.Range(0,-tileSize));
     }
     private void FixedUpdate()
     {
@@ -78,5 +81,37 @@ public class Puzzle : MonoBehaviour
         emptyTile = null;
         targetTile = null;
         isMoving = false;
+        //CheckWin();
+    }
+
+    public void CheckWin()
+    {
+        //Work in Progress
+        if (pieces.Count == tileSize * tileSize)
+        {
+            List<int> ids=new List<int>();
+
+            for(int i = 0; i < pieces.Count; i++)
+            {
+                if (pieces[i].ArtID == tileArtID)
+                {
+                    if (!ids.Contains(pieces[i].pieceID))
+                    {
+                        ids.Add(pieces[i].pieceID);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if (ids.Count == tileSize * tileSize)
+            {
+                for(int i=0; i < pieces.Count; i++)
+                {
+                    
+                }
+            }
+        }
     }
 }

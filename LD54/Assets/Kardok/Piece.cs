@@ -5,6 +5,7 @@ public class Piece : MonoBehaviour
 {
     public int x, y;
     public bool emptyTile,extraTile;
+    public int ArtID, pieceID;
     Puzzle puzzle;
     private void Awake()
     {
@@ -18,8 +19,8 @@ public class Piece : MonoBehaviour
         {
             if (!emptyTile&&!extraTile)
             {
-                puzzle.emptyTile = this;
-                if (puzzle.targetTile != null)
+                puzzle.targetTile = this;
+                if (puzzle.emptyTile != null)
                 {
                     puzzle.TryToMove();
                 }
@@ -47,16 +48,15 @@ public class Piece : MonoBehaviour
                 }
                 else
                 {
-                    if(puzzle.emptyTile != null&& x == puzzle.enterPoint.localPosition.x && y == puzzle.enterPoint.localPosition.y)
+                    if (puzzle.targetTile!=null&&puzzle.targetTile.x == puzzle.enterPoint.localPosition.x && puzzle.targetTile.y == puzzle.enterPoint.localPosition.y)
                     {
-                        puzzle.emptyTile.transform.SetParent(this.transform.parent);
-                        puzzle.emptyTile.transform.localPosition = transform.localPosition;
-                        puzzle.emptyTile.extraTile = true;
+                        puzzle.targetTile.transform.SetParent(this.transform.parent);
+                        puzzle.targetTile.transform.localPosition = transform.localPosition;
+                        puzzle.targetTile.extraTile = true;
                         transform.SetParent(puzzle.transform);
                         puzzle.emptyPieces.Add(this);
                         transform.localPosition = new Vector2(puzzle.enterPoint.localPosition.x, puzzle.enterPoint.localPosition.y);
-                        puzzle.emptyPieces.Remove(puzzle.emptyTile);
-                        puzzle.pieces.Add(this);
+                        puzzle.pieces.Remove(puzzle.targetTile);
                         x = (int)puzzle.enterPoint.localPosition.x;
                         y = (int)puzzle.enterPoint.localPosition.y;
                         this.extraTile = false;
@@ -64,11 +64,12 @@ public class Piece : MonoBehaviour
                 }
                 puzzle.emptyTile = null;
                 puzzle.targetTile = null;
+                //puzzle.CheckWin();
             }
             else
             {
-                puzzle.targetTile = this;
-                if (puzzle.emptyTile != null)
+                puzzle.emptyTile = this;
+                if (puzzle.targetTile != null)
                 {
                     puzzle.TryToMove();
                 }
