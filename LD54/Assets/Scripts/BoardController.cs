@@ -15,28 +15,44 @@ public enum AvailableMovements
 public class BoardController : MonoBehaviour
 {
     private const int TilePixelSize = 256;
-    [SerializeField] private Texture2D _texture;
+    [SerializeField] private CameraController _cameraController;
     [SerializeField] private Sprite _maskSprite;
     private int _colCount;
     private int _rowCount;
     private Tile[,] _tiles;
 
-    private void Awake()
+    private void Clear()
     {
-        Setup();
+        if (_tiles != null)
+        {
+            foreach (Tile tile in _tiles)
+            {
+                if (tile == null)
+                {
+                    continue;
+                }
+
+                tile.OnTilePosChange = null;
+                Destroy(tile.gameObject);
+            }
+
+            _tiles = null;
+        }
     }
 
-    private void Setup()
+    public void Setup(Texture2D texture)
     {
+        Clear();
         Tile.ClearStatic();
-        if (_texture.width % TilePixelSize != 0 || _texture.height % TilePixelSize != 0)
+        if (texture.width % TilePixelSize != 0 || texture.height % TilePixelSize != 0)
         {
             Debug.LogError("Texture size not match");
             return;
         }
 
-        CreateTiles();
+        CreateTiles(texture);
         ShuffleTiles();
+        _cameraController.SetCamera(_colCount,_rowCount);
     }
 
     private void OnTileIndexChange(Tile tile,int currentCol ,int currentRow,int col, int row)
@@ -103,7 +119,7 @@ public class BoardController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             ShuffleTiles();
         }
@@ -140,10 +156,10 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    private void CreateTiles()
+    private void CreateTiles(Texture2D texture)
     {
-        _colCount = _texture.width / TilePixelSize;
-        _rowCount = _texture.height / TilePixelSize;
+        _colCount = texture.width / TilePixelSize;
+        _rowCount = texture.height / TilePixelSize;
 
         _tiles = new Tile[_colCount, _rowCount];
 
@@ -156,7 +172,7 @@ public class BoardController : MonoBehaviour
                     continue;
                 }
 
-                Color[] pixels = _texture.GetPixels(colIndex * TilePixelSize, rowIndex * TilePixelSize, TilePixelSize,
+                Color[] pixels = texture.GetPixels(colIndex * TilePixelSize, rowIndex * TilePixelSize, TilePixelSize,
                     TilePixelSize);
                 var tileTexture = new Texture2D(TilePixelSize, TilePixelSize);
                 tileTexture.SetPixels(0, 0, TilePixelSize, TilePixelSize, pixels);
