@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class GameController : MonoBehaviour
     {
+        public string[] levelTexts;
+        public string[] winTexts;
+        
         public static GameController Instance;
         [SerializeField] private BoardController _boardController;
         [SerializeField] private ReferenceScreen _referenceScreen;
+        [SerializeField] private TextMeshProUGUI _levelName;
         private int _currentLevel = 1;
         private void Awake()
         {
@@ -25,6 +30,12 @@ namespace DefaultNamespace
             _boardController.Setup(tex);
             _referenceScreen.SetReferenceImage(tex);
             MusicController.Instance.StartMusic(_currentLevel);
+            _levelName.text = $"LEVEL: {levelTexts[_currentLevel - 1]}";
+        }
+
+        public string GetWinText()
+        {
+            return winTexts[_currentLevel - 1];
         }
 
         public void GetNextLevel()

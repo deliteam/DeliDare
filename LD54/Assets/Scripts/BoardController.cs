@@ -101,7 +101,7 @@ public class BoardController : MonoBehaviour
 
         float percentage = (float) totalSolvedTiles / totalTiles;
         _winPercentageText.text = $"Win Percentage: {percentage:0.00}";
-        if (percentage > 0.4F)
+        if (percentage > 0.97f)
         {
             WinScreen.Instance.ShowWinScreen();
             MusicController.Instance.StartSfx(SfxName.Win);

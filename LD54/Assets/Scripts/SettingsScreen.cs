@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
@@ -7,7 +8,10 @@ namespace DefaultNamespace
         public static SettingsScreen Instance;
 
         public GameObject settingsPanel;
-
+        public Sprite soundOffIcon;
+        public Sprite soundOnIcon;
+        public Image soundImage;
+        
         public bool IsPaused()
         {
             return settingsPanel.activeSelf;
@@ -26,6 +30,15 @@ namespace DefaultNamespace
                 settingsPanel.SetActive(false);
                 return;
             }
+
+            if (MusicController.Instance.IsMusicActive())
+            {
+                soundImage.sprite = soundOnIcon;
+            }
+            else
+            {
+                soundImage.sprite = soundOffIcon;
+            }
             settingsPanel.SetActive(!settingsPanel.activeSelf);
         }
         
@@ -33,7 +46,18 @@ namespace DefaultNamespace
         {
             settingsPanel.SetActive(false);
         }
-        
+        public void OnMusicButtonClicked()
+        {
+            MusicController.Instance.SetActiveMusic(!MusicController.Instance.IsMusicActive());
+            if (MusicController.Instance.IsMusicActive())
+            {
+                soundImage.sprite = soundOnIcon;
+            }
+            else
+            {
+                soundImage.sprite = soundOffIcon;
+            }
+        }
         public void OnQuitButtonClicked()
         {
             Application.Quit();
