@@ -10,7 +10,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.C))
+            if (Input.GetKey(KeyCode.C) && !SettingsScreen.Instance.IsPaused())
             {
                 _refImage.gameObject.SetActive(true);
             }

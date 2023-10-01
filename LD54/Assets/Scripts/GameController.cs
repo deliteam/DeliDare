@@ -4,20 +4,14 @@ namespace DefaultNamespace
 {
     public class GameController : MonoBehaviour
     {
+        public static GameController Instance;
         [SerializeField] private BoardController _boardController;
         [SerializeField] private ReferenceScreen _referenceScreen;
         private int _currentLevel = 1;
         private void Awake()
         {
+            Instance = this;
             GetLevel();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                GetNextLevel();
-            }
         }
 
         private void GetLevel()
@@ -32,7 +26,7 @@ namespace DefaultNamespace
             _referenceScreen.SetReferenceImage(tex);
         }
 
-        private void GetNextLevel()
+        public void GetNextLevel()
         {
             _currentLevel++;
             GetLevel();

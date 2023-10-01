@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
 
 [Flags]
@@ -14,12 +15,21 @@ public enum AvailableMovements
 
 public class BoardController : MonoBehaviour
 {
+    public static BoardController Instance;
     private const int TilePixelSize = 256;
     [SerializeField] private CameraController _cameraController;
     [SerializeField] private Sprite _maskSprite;
+    [SerializeField] private TextMeshProUGUI _winPercentageText;
     private int _colCount;
     private int _rowCount;
     private Tile[,] _tiles;
+
+    private bool _isActive = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Clear()
     {
@@ -40,6 +50,11 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    private bool IsActive()
+    {
+        return !SettingsScreen.Instance.IsPaused() || !WinScreen.Instance.IsWin();
+    }
+
     public void Setup(Texture2D texture)
     {
         Clear();
@@ -52,6 +67,7 @@ public class BoardController : MonoBehaviour
 
         CreateTiles(texture);
         ShuffleTiles();
+        CheckWinCondition();
         _cameraController.SetCamera(_colCount,_rowCount);
     }
 
@@ -65,7 +81,6 @@ public class BoardController : MonoBehaviour
 
     private void CheckWinCondition()
     {
-
         int totalTiles = _tiles.Length - 1;
         int totalSolvedTiles = 0;
 
@@ -81,11 +96,12 @@ public class BoardController : MonoBehaviour
             }
         }
 
-        if ((float) totalSolvedTiles / totalTiles > 0.4F)
+        float percentage = (float) totalSolvedTiles / totalTiles;
+        _winPercentageText.text = $"Win Percentage: {percentage:0.00}";
+        if (percentage > 0.4F)
         {
-            Debug.LogError("YOU WON");    
+            WinScreen.Instance.ShowWinScreen();
         }
-        
     }
 
     // remove flag
@@ -119,9 +135,9 @@ public class BoardController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!IsActive())
         {
-            ShuffleTiles();
+            return;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -137,7 +153,7 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    private void ShuffleTiles()
+    public void ShuffleTiles()
     {
         _tiles.Shuffle2D();
         for (int colIndex = 0; colIndex < _colCount; colIndex++)
