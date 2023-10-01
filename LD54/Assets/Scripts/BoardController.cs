@@ -14,8 +14,9 @@ public enum AvailableMovements
 
 public class BoardController : MonoBehaviour
 {
-    private const int TilePixelSize = 64;
+    private const int TilePixelSize = 256;
     [SerializeField] private Texture2D _texture;
+    [SerializeField] private Sprite _maskSprite;
     private int _colCount;
     private int _rowCount;
     private Tile[,] _tiles;
@@ -48,19 +49,27 @@ public class BoardController : MonoBehaviour
 
     private void CheckWinCondition()
     {
+
+        int totalTiles = _tiles.Length - 1;
+        int totalSolvedTiles = 0;
+
         foreach (var tile in _tiles)
         {
             if (tile == null)
             {
                 continue;
             }
-            if (!tile.IsInPlace())
+            if (tile.IsInPlace())
             {
-                return;
+                totalSolvedTiles++;
             }
         }
+
+        if ((float) totalSolvedTiles / totalTiles > 0.4F)
+        {
+            Debug.LogError("YOU WON");    
+        }
         
-        Debug.LogError("YOU WON");
     }
 
     // remove flag
@@ -142,9 +151,9 @@ public class BoardController : MonoBehaviour
         {
             for (int rowIndex = 0; rowIndex < _rowCount; rowIndex++)
             {
-                if (colIndex == _colCount - 1 && rowIndex == _rowCount - 1)
+                if (colIndex == _colCount - 1 && rowIndex == 0)
                 {
-                    return;
+                    continue;
                 }
 
                 Color[] pixels = _texture.GetPixels(colIndex * TilePixelSize, rowIndex * TilePixelSize, TilePixelSize,
@@ -163,7 +172,9 @@ public class BoardController : MonoBehaviour
                 GameObject go = new GameObject($"{colIndex} - {rowIndex}");
                 var sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = sprite;
-
+                sr.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                var mask = go.AddComponent<SpriteMask>();
+                mask.sprite = _maskSprite;
                 var tile = go.AddComponent<Tile>();
                 tile.Initialize(colIndex, rowIndex);
                 tile.SetCurrentIndex(colIndex, rowIndex);
