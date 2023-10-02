@@ -24,6 +24,7 @@ public class BoardController : MonoBehaviour
     private int _colCount;
     private int _rowCount;
     private Tile[,] _tiles;
+    private Tile[,] _originalTiles;
 
     private bool _isActive = false;
 
@@ -160,6 +161,8 @@ public class BoardController : MonoBehaviour
 
     public void ShuffleTiles()
     {
+        // ShuffleTiles2();
+        // return;
         _tiles.Shuffle2D();
         for (int colIndex = 0; colIndex < _colCount; colIndex++)
         {
@@ -176,6 +179,35 @@ public class BoardController : MonoBehaviour
             }
         }
     }
+    
+    public void ShuffleTiles2()
+    {
+        for (int colIndex = 0; colIndex < _colCount; colIndex++)
+        {
+            for (int rowIndex = 0; rowIndex < _rowCount; rowIndex++)
+            {
+                Tile tile = _originalTiles[colIndex, rowIndex];
+                if (tile == null)
+                {
+                    _tiles[colIndex, rowIndex] = null;
+                    continue;
+                }
+
+                _tiles[colIndex, rowIndex] = tile;
+                tile.SetCurrentIndex(colIndex, rowIndex);
+                tile.transform.position = new Vector3(colIndex, rowIndex, 0);
+            }
+        }
+
+        Tile tile1 = _originalTiles[2, 1];
+        _tiles[2, 2] = tile1;
+        tile1.SetCurrentIndex(2, 2);
+        tile1.transform.position = new Vector3(2, 2, 0);
+        Tile tile2 = _originalTiles[2, 2];
+        _tiles[2, 1] = tile2;
+        tile2.SetCurrentIndex(2, 1);
+        tile2.transform.position = new Vector3(2, 1, 0);
+    }
 
     private void CreateTiles(Texture2D texture)
     {
@@ -183,6 +215,7 @@ public class BoardController : MonoBehaviour
         _rowCount = texture.height / TilePixelSize;
 
         _tiles = new Tile[_colCount, _rowCount];
+        _originalTiles = new Tile[_colCount, _rowCount];
 
         for (int colIndex = 0; colIndex < _colCount; colIndex++)
         {
@@ -222,6 +255,7 @@ public class BoardController : MonoBehaviour
                 go.layer = LayerMask.NameToLayer("Tile");
 
                 _tiles[colIndex, rowIndex] = tile;
+                _originalTiles[colIndex, rowIndex] = tile;
             }
         }
     }
