@@ -7,12 +7,13 @@ namespace DefaultNamespace
     {
         public string[] levelTexts;
         public string[] winTexts;
-        
+
         public static GameController Instance;
         [SerializeField] private BoardController _boardController;
         [SerializeField] private ReferenceScreen _referenceScreen;
         [SerializeField] private TextMeshProUGUI _levelName;
         private int _currentLevel = 1;
+
         private void Awake()
         {
             Instance = this;
@@ -21,11 +22,18 @@ namespace DefaultNamespace
 
         private void GetLevel()
         {
+            if (PlayerPrefs.HasKey("Level"))
+            {
+                _currentLevel = PlayerPrefs.GetInt("Level");
+            }
+
             Texture2D tex = Resources.Load<Texture2D>($"Levels/{_currentLevel}");
             if (tex == null)
             {
+                PlayerPrefs.SetInt("Level", 1);
                 _currentLevel = 1;
             }
+
             tex = Resources.Load<Texture2D>($"Levels/{_currentLevel}");
             _boardController.Setup(tex);
             _referenceScreen.SetReferenceImage(tex);
@@ -41,6 +49,7 @@ namespace DefaultNamespace
         public void GetNextLevel()
         {
             _currentLevel++;
+            PlayerPrefs.SetInt("Level", _currentLevel);
             GetLevel();
         }
     }
